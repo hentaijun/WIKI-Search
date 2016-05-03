@@ -1,18 +1,16 @@
 var app = angular.module('WikiApp', []);
 app.controller('MainCtrl', function($scope,$http){
-	var form = $('form');
-	var input = $('input');
-	var search = $('#search');
-	var help = $('#help');
-    var clean = $('#delete');
+    $scope.show = true;
+    $scope.hide = false;
+    $scope.fullHeight = "fullHeight";
 	$scope.result = [];
 
 	$scope.search = function(){
-        var title = input.val();
+        var title = $scope.searchTxt;
         if(title){
         	$scope.results = [];
-			help.addClass('hide');
-			search.removeClass('fullHeight');
+        	$scope.hide = true;
+			$scope.fullHeight = '';
 			var api = 'http://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=';
 			var cb = '&callback=JSON_CALLBACK';
 	        var page = 'http://en.wikipedia.org/?curid=';
@@ -23,34 +21,39 @@ app.controller('MainCtrl', function($scope,$http){
         	});
         });
         }else{
-			search.addClass('fullHeight');
-			help.removeClass('hide');
+			$scope.fullHeight = "fullHeight";
+			$scope.hide = false;
         }
 	}
-
-	$scope.deleteS = function(){
-			/* Act on the event */
-			clean.show();
-			}
-
-	$scope.deleteH = function(){
-		clean.hide();
+	$scope.showDelete = function(){
+		if($scope.show = true){
+			$scope.show = false;
+		}
 	}
-	$scope.deleteT = function(){
-		var title = input.val();
-		if(title){
-			clean.show();
-		}else{
-			clean.hide();
+	// $scope.deleteS = function(){
+	// 		/* Act on the event */
+	// 		clean.show();
+	// 		}
+
+	$scope.hideDelete = function(){
+		if($scope.show != true){
+			$scope.show = true;
 		}
 	}
 
-	clean.on('click', function(event) {
-		if($scope.searchTxt !=''){
+	// clean.on('click', function(event) {
+	// 	if($scope.searchTxt !=''){
+	// 		$scope.searchTxt = '';
+	// 	}
+	// 	 $scope.results = [];
+ //         $scope.$apply();
+ //         return false;
+	// });
+	$scope.clean = function(){
+		if($scope.searchTxt != ''){
 			$scope.searchTxt = '';
 		}
-		 $scope.results = [];
-         $scope.$apply();
-         return false;
+		$scope.results = [];
+        return false;
+	}
 	});
-});

@@ -7,12 +7,12 @@
 </head>
 <body>
 <main ng-app="WikiApp" ng-controller="MainCtrl"> 
-	<div id="search" class="wrapper fullHeight">
+	<div id="search" class="wrapper" ng-class="fullHeight">
 		<a href="http://en.wikipedia.org/wiki/Special:Random" target="_blank" class="white-text">Click here for a random article</a><br>
 		<form ng-submit="search()">
-			<input type="text" ng-keydown="deleteS()" ng-focus="deleteT()"  ng-model="searchTxt"/>
-			<span id="delete" class="hide" >+</span>
-			<p id="help" class="white-text">Click the <span class="search_btn" ng-click="search()">search</span></p>
+			<input type="text"   ng-model="searchTxt" ng-keydown="showDelete()" >
+			<span id="delete" ng-class="{'hide':show == true}" ng-click="clean();hideDelete()">+</span>
+			<p id="help" class="white-text" ng-class="{'hide':hide == true}">Click the <span class="search_btn" ng-click="search()">search</span></p>
 		</form>
 	</div>
 	<div class="wrapper">
@@ -24,8 +24,8 @@
 		</a></ul>
 	</div>
 </main>
-<script type="text/javascript" src="JS/angular.min.js"></script>
 <script type="text/javascript" src="JS/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="JS/angular.min.js"></script>
 <script type="text/javascript" src="JS/angular-animate.min.js"></script>
 <script type="text/javascript" src="JS/action.js"></script>
 </body>
